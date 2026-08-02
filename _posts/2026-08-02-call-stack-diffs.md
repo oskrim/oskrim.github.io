@@ -20,7 +20,7 @@ Inspired by [HumanLayer's "Program Design" section](https://github.com/humanlaye
 +      ├─ timeout
 +      │  ├─ abort provider request
 +      │  ├─ throw ProviderInactivityTimeoutError
-+      │  └─ LLMRun.retryBackup()
++      │  └─> LLMRun.retryBackup()
 ```
 
 I find this much faster to understand than the prose language models tend to produce by default. The behavioral changes are immediately scannable. This is especially useful when working out the design in back-and-forth conversation and when resuming work after switching sessions.
