@@ -1,0 +1,9 @@
+title: Oskari's Blog
+description: Notes on software, systems, and building things.
+url: "https://oskrim.github.io"
+baseurl: ""
+
+theme: minima
+
+plugins:
+  - jekyll-feed
