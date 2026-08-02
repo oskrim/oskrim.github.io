@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Call stack diffs: a compact map for code review"
+title: "Call stack diffs"
 date: 2026-08-02 10:00:00 +0300
 categories: engineering
 ---
