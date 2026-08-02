@@ -21,6 +21,6 @@ Inspired by [HumanLayer's "Program Design" section](https://github.com/humanlaye
 +            ↳ LLMRun.retryBackup()
 ```
 
-I find this much faster to parse than the prose which these language models tend to produce by default. The red/green highlighting visually stand out from the rest of the session transcript, so the behavioral changes are immediately scannable. This is especially useful when working out the design in back-and-forth conversation and when resuming work after switching sessions.
+I find this much faster to parse than the prose which these language models tend to produce by default. The red/green highlighting visually stand out from the rest of the session transcript, so the behavioral changes are immediately scannable. This is especially useful when working out the design in back-and-forth conversation or when resuming work after switching sessions.
 
 This diff does not replace the supporting explanations or documentation, rather it's like a pseudocode but better at showing the location of changes in the actual program using real function and class names in an informal but maximally compressed representation.
