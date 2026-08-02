@@ -5,7 +5,7 @@ date: 2026-08-02 10:00:00 +0300
 categories: engineering
 ---
 
-Inspired by [HumanLayer's "Program Design" section](https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/blob/main/wsff.md#program-design) in *Why Software Factories Fail*, I've recently added a permanent system instruction for all coding agents to communicate all planned changes or implementations inline as *call stack diffs*:
+Inspired by [HumanLayer's "Program Design" section](https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/blob/main/wsff.md#program-design) in *Why Software Factories Fail*, I've recently added a permanent system instruction for coding agents to communicate all planned changes or implementations inline as *call stack diffs*:
 
 ```diff
  LLMRun.generate()
@@ -21,6 +21,6 @@ Inspired by [HumanLayer's "Program Design" section](https://github.com/humanlaye
 +            ↳ LLMRun.retryBackup()
 ```
 
-I find this much faster to understand than the prose which these language models tend to produce by default. The behavioral changes are immediately scannable. This is especially useful when working out the design in back-and-forth conversation and when resuming work after switching sessions.
+I find this much faster to parse than the prose which these language models tend to produce by default. The red/green highlighting visually stand out from the rest of the session transcript, so the behavioral changes are immediately scannable. This is especially useful when working out the design in back-and-forth conversation and when resuming work after switching sessions.
 
 This diff does not replace the supporting explanations or documentation, rather it's like a pseudocode but better at showing the location of changes in the actual program using real function and class names in an informal but maximally compressed representation.
