@@ -14,15 +14,13 @@ Inspired by [HumanLayer's "Program Design" section](https://github.com/humanlaye
 -      └─ wait indefinitely
 +   └─ withProviderInactivityTimeout()
 +      ├─ race iterator.next() against 30s timeout
-+      ├─ event received
-+      │  ├─ clear timer
-+      │  └─ yield event downstream
-+      ├─ timeout
-+      │  ├─ abort provider request
-+      │  ├─ throw ProviderInactivityTimeoutError
-+      │  └─> LLMRun.retryBackup()
++      ├─ event received → reset timer → yield downstream
++      └─ timeout
++         ├─ abort provider request
++         └─ throw ProviderInactivityTimeoutError
++            ↳ LLMRun.retryBackup()
 ```
 
-I find this much faster to understand than the prose language models tend to produce by default. The behavioral changes are immediately scannable. This is especially useful when working out the design in back-and-forth conversation and when resuming work after switching sessions.
+I find this much faster to understand than the prose which these language models tend to produce by default. The behavioral changes are immediately scannable. This is especially useful when working out the design in back-and-forth conversation and when resuming work after switching sessions.
 
 This diff does not replace the supporting explanations or documentation, rather it's like a pseudocode but better at showing the location of changes in the actual program using real function and class names in an informal but maximally compressed representation.
