@@ -26,3 +26,5 @@ in *Why Software Factories Fail*, I've recently added a permanent system instruc
 ```
 
 This feels a lot more efficient to parse than wading through the typical prose that is produced by these language models by default. The changed and new code paths are easy to scan. This feels especially useful in back-and-forth conversation and and when context switching between sessions.
+
+This is much easier to parse than wading through the prose language models produce by default. Changed and new code paths are immediately scannable, which is especially useful in back-and-forth conversations and when switching between sessions.
