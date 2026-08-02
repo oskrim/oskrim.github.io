@@ -10,19 +10,19 @@ section](https://github.com/humanlayer/advanced-context-engineering-for-coding-a
 in *Why Software Factories Fail*, I've recently added a permanent system instruction for all coding agents to communicate all planned changes or implementations inline as *call stack diffs*:
 
 ```diff
-   LLMRun.generate()
-   └─ llmClient.streamChatCompletions()
-  -   └─ iterator.next()
-  -      └─ wait indefinitely
-  +   └─ withProviderInactivityTimeout()
-  +      ├─ race iterator.next() against 30s timeout
-  +      ├─ event received
-  +      │  ├─ clear timer
-  +      │  └─ yield event downstream
-  +      ├─ timeout
-  +      │  ├─ abort provider request
-  +      │  ├─ throw ProviderInactivityTimeoutError
-  +      │  └─ LLMRun.retryBackup()
+ LLMRun.generate()
+ └─ llmClient.streamChatCompletions()
+-   └─ iterator.next()
+-      └─ wait indefinitely
++   └─ withProviderInactivityTimeout()
++      ├─ race iterator.next() against 30s timeout
++      ├─ event received
++      │  ├─ clear timer
++      │  └─ yield event downstream
++      ├─ timeout
++      │  ├─ abort provider request
++      │  ├─ throw ProviderInactivityTimeoutError
++      │  └─ LLMRun.retryBackup()
 ```
 
 This feels a lot more efficient to parse than wading through the typical prose that is produced by these language models by default. The changed and new code paths are easy to scan. This feels especially useful in back-and-forth conversation and and when context switching between sessions.
