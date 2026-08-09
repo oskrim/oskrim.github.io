@@ -94,4 +94,4 @@ for file in ./my-pdf-files/*.pdf; do
 done
 ```
 
-After this, you should be able to find and read the new files in the My Files view. I never did fix the cloud sync, I find uploading files over SSH to be more convenient after all.
+After this, you should be able to find and read the new files in the My Files view. I never did fix the cloud sync, I find uploading files over SSH to be more convenient anyway.
