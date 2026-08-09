@@ -70,7 +70,7 @@ Instead of debugging this further (by now I was done dealing with the cloud sync
 
 ```bash
 conf=/home/root/.config/remarkable/xochitl.conf
-cp -p "$conf" "$conf.codex-backup-before-usb-web"
+cp -p "$conf" "$conf.backup-before-usb-web"
 if grep -q '^WebInterfaceEnabled=' "$conf"; then
   sed -i 's/^WebInterfaceEnabled=.*/WebInterfaceEnabled=true/' "$conf"
 else
