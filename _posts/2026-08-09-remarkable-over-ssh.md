@@ -31,12 +31,13 @@ After setting the time, I was able to download a software update.
 
 ## Software update
 
-The first software update only brought the tablet to **3.11.2.5**, badly obsolete
-(3.27.x had been out since May 2026).
+After the first software update, cloud sync now gave me **HTTP 400**. I found the actual error message in the journal: *"Unable to sync. Please update this application to continue using the reMarkable cloud."*
 
-After a post-update reboot, the updater had started **before wifi/DNS was up** and never retried.
-`journalctl` showed `Couldn't resolve host name`. Restarting the update services made the
-Settings screen offer **3.27.3.0**, and a second update brought the tablet to the latest available software version.
+```bash
+journalctl -u rm-sync.service --since '-45 min' --no-pager
+```
+
+The cloud was rejecting my obsolete system version. Turns out the first update only brought the tablet to **3.11.2.5** and wouldn't update further. Turns out that after a post-update reboot, the updater had started **before wifi/DNS was up** and never retried. `journalctl` showed `Couldn't resolve host name`. Restarting the update services made the Settings screen offer **3.27.3.0**, and a second update brought the tablet to the latest available software version.
 
 ```bash
 systemctl restart swupdate.service update-engine.service
@@ -53,12 +54,6 @@ systemctl is-enabled dropbear-wlan.socket
 test -e /home/root/.config/remarkable/rm_enable_ssh_wifi_marker && echo present
 ip -4 -brief address show wlan0
 ss -lntp | grep ':22 ' || true
-```
-
-After updating to 3.27, cloud sync gave **HTTP 400**. I found the actual error message in the journal: *"Unable to sync. Please update this application to continue using the reMarkable cloud."* The cloud was rejecting my obsolete system version. Once 3.27 was installed, the UI indicated a successful sync.
-
-```bash
-journalctl -u rm-sync.service --since '-45 min' --no-pager
 ```
 
 ## Importing files over SSH
