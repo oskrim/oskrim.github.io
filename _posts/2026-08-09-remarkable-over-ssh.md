@@ -31,13 +31,15 @@ After setting the time, I was able to download a software update.
 
 ## Software update
 
-After the first software update, cloud sync now gave me **HTTP 400**. I found the actual error message in the journal: *"Unable to sync. Please update this application to continue using the reMarkable cloud."*
+After the first software update, cloud sync now gave me a different error: **HTTP 400**. I found the actual error message in the journal: *"Unable to sync. Please update this application to continue using the reMarkable cloud."*
 
 ```bash
 journalctl -u rm-sync.service --since '-45 min' --no-pager
 ```
 
-The cloud was rejecting my obsolete system version. Turns out the first update only brought the tablet to **3.11.2.5** and wouldn't update further. Turns out that after a post-update reboot, the updater had started **before wifi/DNS was up** and never retried. `journalctl` showed `Couldn't resolve host name`. Restarting the update services made the Settings screen offer **3.27.3.0**, and a second update brought the tablet to the latest available software version.
+The cloud was rejecting my obsolete system version. Turns out the first update only brought the tablet to **3.11.2.5** and wouldn't update further.
+
+`journalctl` for `swupdate.service` showed `Couldn't resolve host name` (after the post-update reboot, the updater had started before wifi/DNS was up and never retried). Restarting the update services made the Settings screen offer **3.27.3.0**, and a second update brought the tablet to the latest available software version.
 
 ```bash
 systemctl restart swupdate.service update-engine.service
@@ -45,7 +47,9 @@ systemctl is-active swupdate.service update-engine.service
 journalctl --since '-1 min' -u swupdate.service -u update-engine.service
 ```
 
-Starting with version 3.22 of the software, **SSH over wifi is now silently disabled** by the update, so port 22 refuses on the LAN. SSH in to the tablet via USB (e.g. `10.11.99.1`) instead. Re-enable network SSH with `rm-ssh-over-wlan on`, or drop the marker file `rm_enable_ssh_wifi_marker` (the `dropbear-wlan.socket` unit is already enabled, just inactive)
+Starting with version 3.22 of the software, **SSH over wifi is now silently disabled** by the update, so port 22 refuses on the LAN.
+
+SSH in to the tablet via USB (e.g. `10.11.99.1`) instead. Re-enable network SSH with `rm-ssh-over-wlan on`, or drop the marker file `rm_enable_ssh_wifi_marker` (the `dropbear-wlan.socket` unit is already enabled, just inactive)
 
 ```bash
 rm-ssh-over-wlan on
