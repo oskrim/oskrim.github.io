@@ -14,3 +14,28 @@
 .post-content h4 {
   margin-top: 1.25rem;
 }
+
+.post-footer {
+  border-top: 1px solid $grey-color-light;
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+}
+
+.post-navigation {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.post-previous {
+  grid-column: 1;
+}
+
+.post-next {
+  grid-column: 2;
+  text-align: right;
+}
+
+.post-footer .rss-subscribe {
+  margin: 1.5rem 0 0;
+}
