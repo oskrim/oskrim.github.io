@@ -1,0 +1,97 @@
+---
+layout: post
+title: "Reviving a five-year-old reMarkable over SSH"
+categories: hardware
+# TODO: pick a date when publishing; draft = no date needed
+---
+
+I found my old reMarkable 2 paper table, bought in 2021, it had sat unused for ~4 years or so. The device was in a sorry state:
+
+- Cloud sync failing. The only thing showing was a cryptic `error 0`.
+- Software update didn't work.
+
+This post details how you might be able to bring your tablet back to working order if you find yourself in a similar situation.
+
+## The clock
+
+Googling the error I found a forum post with what its author called "the fast solution" — SSH in, set the clock:
+
+```bash
+ssh root@10.11.99.1          # USB. over wifi: the tablet's LAN IP
+# password: on the tablet, Settings → Help → Copyrights and licenses → General info
+# (username root, password, IPs all listed there)
+
+timedatectl                  # confirm how far off it is
+timedatectl set-ntp 0        # disable auto time first, or set-time errors out
+timedatectl set-time '2026-07-15'
+timedatectl set-ntp 1
+```
+
+After setting the time, I was able to download a software update.
+
+## The update
+
+The first software update only brought the tablet to **3.11.2.5** — badly obsolete
+(3.27.x had been out since May 2026).
+
+After a post-update reboot, the updater had started **before wifi/DNS was up** and never retried.
+`journalctl` showed `Couldn't resolve host name`. Restarting the update services made the
+Settings screen offer **3.27.3.0**, and a second update brought the tablet to the latest available software version.
+
+```bash
+systemctl restart swupdate.service update-engine.service
+systemctl is-active swupdate.service update-engine.service
+journalctl --since '-1 min' -u swupdate.service -u update-engine.service
+```
+
+After updating, cloud sync gave **HTTP 400** — I found the actual error message in the journal: *"Unable to sync. Please update this application to
+  continue using the reMarkable cloud."* The cloud was rejecting my obsolete system version. Once 3.27 was installed, sync reconciled cleanly.
+
+```bash
+journalctl -u rm-sync.service --since '-45 min' --no-pager
+```
+
+## Gotchas on 3.27
+
+**SSH over wifi is now silently disabled** by the update — port 22 refuses on the LAN. SSH in to the tablet via USB (e.g. `10.11.99.1`) instead. Re-enable network SSH with `rm-ssh-over-wlan on`, or drop the marker file `rm_enable_ssh_wifi_marker` (the `dropbear-wlan.socket` unit is already enabled, just inactive)
+
+```bash
+rm-ssh-over-wlan on
+systemctl is-active dropbear-wlan.socket
+systemctl is-enabled dropbear-wlan.socket
+test -e /home/root/.config/remarkable/rm_enable_ssh_wifi_marker && echo present
+ip -4 -brief address show wlan0
+ss -lntp | grep ':22 ' || true
+```
+
+## Copying the books over SSH (bypassing the cloud)
+
+For whatever reason, cloud sync still seemed to be broken, it wouldn't pull any of my new uploads. Instead of debugging this further (by now I was done dealing with the cloud sync), I found that the table has an optional web server that can be turned to allow you to upload and export files from the device. It's a good idea to back up the xochitl config before toggling it on (`WebInterfaceEnabled`):
+
+```bash
+conf=/home/root/.config/remarkable/xochitl.conf
+cp -p "$conf" "$conf.codex-backup-before-usb-web"
+if grep -q '^WebInterfaceEnabled=' "$conf"; then
+  sed -i 's/^WebInterfaceEnabled=.*/WebInterfaceEnabled=true/' "$conf"
+else
+  sed -i '/^\[General\]$/a WebInterfaceEnabled=true' "$conf"
+fi
+systemctl restart xochitl.service
+grep '^WebInterfaceEnabled=' "$conf"
+systemctl is-active xochitl.service
+```
+
+Inspect and upload PDFs:
+
+```bash
+curl --max-time 30 -sS http://10.11.99.1/documents/ | jq -r '.[].VisibleName'
+
+set -e
+for file in ./my-pdf-files/*.pdf; do
+  name=${file##*/}
+  status=$(curl --max-time 300 -sS -o /dev/null -w '%{http_code}' \
+    -F "file=@${file};type=application/pdf" http://10.11.99.1/upload)
+  printf '%s\t%s\n' "$status" "$name"
+  test "$status" = 201
+done
+```
