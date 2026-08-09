@@ -34,7 +34,7 @@ After setting the time, I was able to download a software update.
 The first software update only brought the tablet to **3.11.2.5**, badly obsolete
 (3.27.x had been out since May 2026).
 
-After a post update reboot, the updater had started **before wifi/DNS was up** and never retried.
+After a post-update reboot, the updater had started **before wifi/DNS was up** and never retried.
 `journalctl` showed `Couldn't resolve host name`. Restarting the update services made the
 Settings screen offer **3.27.3.0**, and a second update brought the tablet to the latest available software version.
 
@@ -44,16 +44,7 @@ systemctl is-active swupdate.service update-engine.service
 journalctl --since '-1 min' -u swupdate.service -u update-engine.service
 ```
 
-After updating, cloud sync gave **HTTP 400**. I found the actual error message in the journal: *"Unable to sync. Please update this application to
-  continue using the reMarkable cloud."* The cloud was rejecting my obsolete system version. Once 3.27 was installed, sync reconciled cleanly.
-
-```bash
-journalctl -u rm-sync.service --since '-45 min' --no-pager
-```
-
-## Gotchas on 3.27
-
-**SSH over wifi is now silently disabled** by the update, so port 22 refuses on the LAN. SSH in to the tablet via USB (e.g. `10.11.99.1`) instead. Re-enable network SSH with `rm-ssh-over-wlan on`, or drop the marker file `rm_enable_ssh_wifi_marker` (the `dropbear-wlan.socket` unit is already enabled, just inactive)
+Starting with version 3.22 of the software, **SSH over wifi is now silently disabled** by the update, so port 22 refuses on the LAN. SSH in to the tablet via USB (e.g. `10.11.99.1`) instead. Re-enable network SSH with `rm-ssh-over-wlan on`, or drop the marker file `rm_enable_ssh_wifi_marker` (the `dropbear-wlan.socket` unit is already enabled, just inactive)
 
 ```bash
 rm-ssh-over-wlan on
@@ -62,6 +53,12 @@ systemctl is-enabled dropbear-wlan.socket
 test -e /home/root/.config/remarkable/rm_enable_ssh_wifi_marker && echo present
 ip -4 -brief address show wlan0
 ss -lntp | grep ':22 ' || true
+```
+
+After updating to 3.27, cloud sync gave **HTTP 400**. I found the actual error message in the journal: *"Unable to sync. Please update this application to continue using the reMarkable cloud."* The cloud was rejecting my obsolete system version. Once 3.27 was installed, the UI indicated a successful sync.
+
+```bash
+journalctl -u rm-sync.service --since '-45 min' --no-pager
 ```
 
 ## Importing files over SSH
