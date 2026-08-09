@@ -81,7 +81,7 @@ grep '^WebInterfaceEnabled=' "$conf"
 systemctl is-active xochitl.service
 ```
 
-_Update: The web server can also be enabled in the device UI. Connect the tablet over USB, then enable [Settings → General settings → Storage → USB web interface](https://support.remarkable.com/s/article/importing-and-exporting-files)._
+_Update: The web server can also be enabled in the device UI, go to [Settings → General settings → Storage → USB web interface](https://support.remarkable.com/s/article/importing-and-exporting-files)._
 
 Inspect and upload PDFs:
 
