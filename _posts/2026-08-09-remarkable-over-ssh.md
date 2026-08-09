@@ -64,7 +64,7 @@ ss -lntp | grep ':22 ' || true
 
 For whatever reason, cloud sync still appeared to be broken, it wouldn't pull any of my new uploads.
 
-Instead of debugging this further (by now I was done dealing with the cloud sync), I found that the table has an optional web server that can be turned on, to allow you to upload and export files from the device. I backed up the xochitl config before toggling it on (`WebInterfaceEnabled=true`):
+Instead of debugging this further (by now I was done dealing with the cloud sync), I found that the tablet has an optional web server that can be turned on, to allow you to upload and export files from the device. I backed up the xochitl config before toggling it on (`WebInterfaceEnabled=true`):
 
 ```bash
 conf=/home/root/.config/remarkable/xochitl.conf
