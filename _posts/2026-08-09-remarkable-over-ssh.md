@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Reviving a four year old reMarkable over SSH"
+title: "Reviving a four year old reMarkable 2"
 categories: hardware
 # TODO: pick a date when publishing; draft = no date needed
 ---
