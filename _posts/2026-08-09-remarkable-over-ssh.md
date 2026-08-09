@@ -36,7 +36,7 @@ _Update: This failure mode is also documented in an [official support article](h
 After the first software update, cloud sync now gave me a different error: **HTTP 400**. I found the actual error message in the journal: *"Unable to sync. Please update this application to continue using the reMarkable cloud."*
 
 ```bash
-journalctl -u rm-sync.service --since '-45 min' --no-pager
+journalctl -u rm-sync.service --since '-45 min'
 ```
 
 The cloud was rejecting my obsolete system version. Turns out the first update only brought the tablet to **3.11.2.5** and wouldn't update further.
