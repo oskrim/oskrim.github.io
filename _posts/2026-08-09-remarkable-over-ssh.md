@@ -29,6 +29,8 @@ timedatectl set-ntp 1
 
 After setting the time, I was able to download a software update.
 
+_Update: This failure mode is also documented in an [official support article](https://support.remarkable.com/s/article/Unable-to-update-reMarkable-Paper-Tablet): an out-of-sync device clock can prevent software updates._
+
 ## Software update
 
 After the first software update, cloud sync now gave me a different error: **HTTP 400**. I found the actual error message in the journal: *"Unable to sync. Please update this application to continue using the reMarkable cloud."*
@@ -78,6 +80,8 @@ systemctl restart xochitl.service
 grep '^WebInterfaceEnabled=' "$conf"
 systemctl is-active xochitl.service
 ```
+
+_Update: The web server can also be enabled in the device UI. Connect the tablet over USB, then enable [Settings → General settings → Storage → USB web interface](https://support.remarkable.com/s/article/importing-and-exporting-files)._
 
 Inspect and upload PDFs:
 
