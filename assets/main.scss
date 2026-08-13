@@ -15,6 +15,204 @@
   margin-top: 1.25rem;
 }
 
+.reading-time {
+  color: $grey-color;
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-left: 0.4rem;
+}
+
+.table-scroll {
+  margin-bottom: $spacing-unit;
+  overflow-x: auto;
+}
+
+.post-content .table-scroll table {
+  border: 0;
+  color: $text-color;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0;
+  min-width: 34rem;
+}
+
+.post-content .table-scroll tr:nth-child(even) {
+  background: transparent;
+}
+
+.post-content .table-scroll th,
+.post-content .table-scroll td {
+  background: transparent;
+  border: 0;
+  padding: 0.45rem 0.6rem;
+}
+
+.post-content .table-scroll th {
+  color: $grey-color;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.post-content .table-scroll th:first-child,
+.post-content .table-scroll td:first-child {
+  padding-left: 0;
+}
+
+.post-content .table-scroll th:last-child,
+.post-content .table-scroll td:last-child {
+  padding-right: 0;
+}
+
+.late-chunking-figure {
+  margin: 2rem 0;
+}
+
+.diagram-scroll {
+  overflow-x: auto;
+}
+
+.late-chunking-figure svg {
+  display: block;
+  min-width: 42rem;
+  width: 100%;
+}
+
+.late-chunking-figure figcaption {
+  color: $grey-color;
+  font-size: $small-font-size;
+  margin-top: 0.75rem;
+}
+
+.post-content mjx-container[display="true"] {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.late-chunking-figure .diagram-heading,
+.late-chunking-figure .diagram-label,
+.late-chunking-figure .encoder-label,
+.late-chunking-figure .input-text,
+.late-chunking-figure .diagram-muted {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.late-chunking-figure .diagram-symbol {
+  fill: #5f6368;
+  font-family: Georgia, serif;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.late-chunking-figure .diagram-heading {
+  fill: #202124;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.late-chunking-figure .diagram-label {
+  fill: currentColor;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.late-chunking-figure .diagram-muted {
+  fill: #686868;
+  font-size: 11px;
+}
+
+.late-chunking-figure .chunk-metadata {
+  color: #4285f4;
+}
+
+.late-chunking-figure .chunk-one {
+  color: #ea4335;
+}
+
+.late-chunking-figure .chunk-two {
+  color: #f9ab00;
+}
+
+.late-chunking-figure .chunk-three {
+  color: #34a853;
+}
+
+.late-chunking-figure .chunk-four {
+  color: #a142f4;
+}
+
+.late-chunking-figure .token-embedding,
+.late-chunking-figure .chunk-embedding {
+  fill: currentColor;
+}
+
+.late-chunking-figure .input-text {
+  fill: currentColor;
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.late-chunking-figure .pool-line,
+.late-chunking-figure .flow-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.late-chunking-figure .pool-line,
+.late-chunking-figure .flow-line {
+  stroke: currentColor;
+}
+
+.late-chunking-figure .window-outline,
+.late-chunking-figure .shared-window {
+  fill: none;
+  stroke-width: 1.25;
+}
+
+.late-chunking-figure .window-outline {
+  opacity: 0.4;
+  stroke: currentColor;
+}
+
+.late-chunking-figure .shared-window {
+  stroke: #4285f4;
+}
+
+.late-chunking-figure .encoder-layer {
+  fill: currentColor;
+  fill-opacity: 0.1;
+  stroke: currentColor;
+  stroke-opacity: 0.3;
+  stroke-width: 1;
+}
+
+.late-chunking-figure .shared-encoder {
+  color: #4285f4;
+}
+
+.late-chunking-figure .encoder-label {
+  fill: #3c4043;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.late-chunking-figure .pool-line {
+  opacity: 0.25;
+  stroke-width: 1;
+}
+
+.late-chunking-figure .flow-line {
+  color: #686868;
+  marker-end: url(#flow-arrow);
+  stroke-width: 1;
+}
+
+.late-chunking-figure .late-flow-line {
+  marker-end: url(#late-flow-arrow);
+}
+
 .post-footer {
   border-top: 1px solid $grey-color-light;
   margin-top: 2.5rem;

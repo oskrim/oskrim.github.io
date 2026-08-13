@@ -6,10 +6,12 @@ layout: default
   <header class="post-header">
     <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
     <p class="post-meta">
+      {%- assign reading_time = content | strip_html | number_of_words | plus: 199 | divided_by: 200 -%}
       <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
         {{ page.date | date: date_format }}
       </time>
+      <span class="reading-time" aria-label="Estimated reading time">{{ reading_time }} min read</span>
       {%- if page.author -%}
         • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
       {%- endif -%}
@@ -19,6 +21,24 @@ layout: default
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
   </div>
+
+  <script>
+    document.querySelectorAll(".post-content a[href]").forEach((link) => {
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    });
+
+    document.querySelectorAll(".post-content table").forEach((table) => {
+      const scrollArea = document.createElement("div");
+      scrollArea.className = "table-scroll";
+      table.before(scrollArea);
+      scrollArea.append(table);
+    });
+  </script>
+
+  {%- if page.math -%}
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+  {%- endif -%}
 
   <footer class="post-footer">
     <nav class="post-navigation" aria-label="Post navigation">

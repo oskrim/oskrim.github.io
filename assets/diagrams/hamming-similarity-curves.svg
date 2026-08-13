@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 350" role="img" aria-labelledby="hamming-curves-title hamming-curves-description">
+  <title id="hamming-curves-title">Inverse Hamming similarity by vector length</title>
+  <desc id="hamming-curves-description">A graph comparing normalized binary dot product with inverse Hamming similarity for 32, 128, and 512 bit vectors over angles from zero to ninety degrees. Inverse Hamming falls much more sharply, especially for longer vectors.</desc>
+  <style>
+    text { fill: #202124; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif }
+    .label { fill: #686868; font-family: Georgia, serif; font-size: 14px; font-style: italic }
+    .axis { fill: none; stroke: #686868; stroke-width: 1 }
+    .grid { fill: none; stroke: #dadce0; stroke-width: 1 }
+    .curve { fill: none; stroke-linecap: round; stroke-linejoin: round }
+    .dot { stroke: #5f6368; stroke-width: 2.25 }
+    .bits-32 { stroke: #f9ab00; stroke-width: 2.25 }
+    .bits-128 { stroke: #4285f4; stroke-width: 3.25 }
+    .bits-512 { stroke: #a142f4; stroke-width: 2.25 }
+    .legend { font-size: 10px; font-weight: 600 }
+  </style>
+
+  <g class="legend">
+    <path class="curve dot" d="M330 43h22"/><text x="358" y="47">dot product</text>
+    <path class="curve bits-32" d="M438 43h22"/><text x="466" y="47">32 bits</text>
+    <path class="curve bits-128" d="M526 43h22"/><text x="554" y="47">128 bits</text>
+    <path class="curve bits-512" d="M624 43h22"/><text x="652" y="47">512 bits</text>
+  </g>
+
+  <g aria-hidden="true">
+    <path class="grid" d="M72 74h620M72 128h620M72 182h620M72 236h620M72 290h620"/>
+    <path class="grid" d="M175.3 74v216M278.7 74v216M382 74v216M485.3 74v216M588.7 74v216"/>
+    <path class="axis" d="M72 74v216h620"/>
+  </g>
+
+  <text class="label" x="382" y="326" text-anchor="middle">θ</text>
+
+  <g transform="translate(0 30)">
+    <path class="curve dot" d="M72.0,44.0 L85.8,44.1 L99.6,44.5 L113.3,45.2 L127.1,46.1 L140.9,47.3 L154.7,48.7 L168.4,50.4 L182.2,52.4 L196.0,54.6 L209.8,57.0 L223.6,59.7 L237.3,62.7 L251.1,65.9 L264.9,69.3 L278.7,72.9 L292.4,76.8 L306.2,80.9 L320.0,85.3 L333.8,89.8 L347.6,94.5 L361.3,99.5 L375.1,104.6 L388.9,110.0 L402.7,115.5 L416.4,121.2 L430.2,127.0 L444.0,133.0 L457.8,139.2 L471.6,145.5 L485.3,152.0 L499.1,158.6 L512.9,165.3 L526.7,172.1 L540.4,179.1 L554.2,186.1 L568.0,193.3 L581.8,200.5 L595.6,207.7 L609.3,215.1 L623.1,222.5 L636.9,229.9 L650.7,237.4 L664.4,244.9 L678.2,252.5 L692.0,260.0"/>
+    <path class="curve bits-32" d="M72.0,44.0 L85.8,46.1 L99.6,52.1 L113.3,61.4 L127.1,73.1 L140.9,86.2 L154.7,100.0 L168.4,113.6 L182.2,126.7 L196.0,138.9 L209.8,150.1 L223.6,160.2 L237.3,169.4 L251.1,177.5 L264.9,184.8 L278.7,191.3 L292.4,197.0 L306.2,202.2 L320.0,206.7 L333.8,210.8 L347.6,214.5 L361.3,217.7 L375.1,220.7 L388.9,223.3 L402.7,225.7 L416.4,227.8 L430.2,229.8 L444.0,231.6 L457.8,233.2 L471.6,234.7 L485.3,236.0 L499.1,237.2 L512.9,238.4 L526.7,239.4 L540.4,240.4 L554.2,241.3 L568.0,242.1 L581.8,242.8 L595.6,243.5 L609.3,244.2 L623.1,244.8 L636.9,245.4 L650.7,245.9 L664.4,246.4 L678.2,246.9 L692.0,247.3"/>
+    <path class="curve bits-128" d="M72.0,44.0 L85.8,52.1 L99.6,73.1 L113.3,100.1 L127.1,126.9 L140.9,150.5 L154.7,169.9 L168.4,185.5 L182.2,197.9 L196.0,207.7 L209.8,215.6 L223.6,221.8 L237.3,226.9 L251.1,231.1 L264.9,234.6 L278.7,237.4 L292.4,239.9 L306.2,241.9 L320.0,243.7 L333.8,245.2 L347.6,246.5 L361.3,247.6 L375.1,248.6 L388.9,249.5 L402.7,250.3 L416.4,250.9 L430.2,251.6 L444.0,252.1 L457.8,252.6 L471.6,253.1 L485.3,253.5 L499.1,253.8 L512.9,254.2 L526.7,254.5 L540.4,254.7 L554.2,255.0 L568.0,255.2 L581.8,255.4 L595.6,255.6 L609.3,255.8 L623.1,256.0 L636.9,256.1 L650.7,256.3 L664.4,256.4 L678.2,256.6 L692.0,256.7"/>
+    <path class="curve bits-512" d="M72.0,44.0 L85.8,73.1 L99.6,127.0 L113.3,170.1 L127.1,198.1 L140.9,215.8 L154.7,227.2 L168.4,234.9 L182.2,240.2 L196.0,244.0 L209.8,246.9 L223.6,249.0 L237.3,250.7 L251.1,252.0 L264.9,253.0 L278.7,253.9 L292.4,254.6 L306.2,255.2 L320.0,255.7 L333.8,256.1 L347.6,256.5 L361.3,256.8 L375.1,257.0 L388.9,257.3 L402.7,257.5 L416.4,257.7 L430.2,257.8 L444.0,258.0 L457.8,258.1 L471.6,258.2 L485.3,258.3 L499.1,258.4 L512.9,258.5 L526.7,258.6 L540.4,258.7 L554.2,258.7 L568.0,258.8 L581.8,258.8 L595.6,258.9 L609.3,258.9 L623.1,259.0 L636.9,259.0 L650.7,259.1 L664.4,259.1 L678.2,259.1 L692.0,259.2"/>
+  </g>
+</svg>
