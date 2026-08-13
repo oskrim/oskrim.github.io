@@ -35,7 +35,7 @@ those tokens must come from the same chunk.
 
 ## Hamming maximum similarity
 
-At least since [ColBERTv2](https://arxiv.org/pdf/2112.01488), almost everyone has been compressing their embeddings to deal with the storage and compute demands of storing an embedding vector for each document token at scale. We go all the way to binary: in our schema each 128-dimensional ColBERT document vector is packed into 16 bytes. Inverse Hamming distance is a similarity metric between binary vectors that is fast to compute:
+At least since [ColBERTv2](https://arxiv.org/pdf/2112.01488), almost everyone has been compressing their embeddings to deal with the storage and compute demands of storing an embedding vector for each document token at scale. We binarize the embeddings: in our schema each 128-dimensional ColBERT document vector is packed into 16 bytes. Inverse Hamming distance is a similarity metric between binary vectors that is fast to compute:
 
 $$
 s_H(q,d)
@@ -57,15 +57,13 @@ $$
 
 ## Optimization
 
-A useful transformation comes from the fact that inverse distance is
-monotonically decreasing. Within a chunk, maximizing inverse distance is the
-same as minimizing distance first:
+Inverse distance is monotonically decreasing, so within a chunk, maximizing inverse distance is the same as minimizing distance first:
 
 $$
 S = \max_c \sum_q \frac{1}{1 + \min_{t} H(q,d_{c,t})}.
 $$
 
-This expression gives us the blueprint for a fast algorithm:
+The can be computed in the following steps:
 
 1. Allocate one minimum distance for every `(chunk, query token)` pair.
 2. Walk the document vectors once.
@@ -91,8 +89,7 @@ In [call stack diff](https://oskrim.github.io/engineering/2026/08/02/call-stack-
 ```
 
 The implementation is available in [a pull request on
-Vespa](https://github.com/vespa-engine/vespa/pull/37563). The fast path deliberately
-matches this exact shape:
+Vespa](https://github.com/vespa-engine/vespa/pull/37563). The fast path matches this shape:
 
 ```text
 query:    tensor<int8>(qt{},x[N])
@@ -100,18 +97,18 @@ document: tensor<int8>(chunk{},t{},x[N])
 max(chunk, sum(qt, max(t, 1 / (1 + sum(x, hamming(query, document))))))
 ```
 
-Both tensors must use `int8` cells, the document dimensions must be mapped,
+Both tensors must use `int8` cells, the token and chunk dimensions must be mapped,
 and the reductions must have this order. Without these tensor and expression shapes, the optimization will not trigger.
 
 ## Result
 
 I measured a small dataset of 16-byte binary vectors, 32 query vectors, and 301 chunks of 138 document vectors:
 
-| Measurement | Result |
-|:--|--:|
-| Before | 91.8 ms |
-| After | 2.8 ms |
-| Speedup | **32.8×** |
+| Measurement | Time | Token comparisons / s |
+|:--|--:|--:|
+| Before | 91.8 ms | 14.5M |
+| After | 2.8 ms | 475M |
+| Speedup | **32.8×** | |
 
 The 32.8x speedup is roughly in line with that [observed for the two-dimensional optimization](https://github.com/vespa-engine/vespa/issues/32232#issuecomment-2367477852).
 
