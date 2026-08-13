@@ -115,4 +115,4 @@ I measured a small dataset of 16-byte binary vectors, 32 query vectors, and 301 
 
 The 32.8x speedup is roughly in line with that [observed for the two-dimensional optimization](https://github.com/vespa-engine/vespa/issues/32232#issuecomment-2367477852).
 
-At [Realm](https://www.withrealm.com/blog/seed-round), we have been running the new patch live in production for thousands of users for a few days already, observing 10x speedups for queries that used to be unbearably slow. If you are interested in working with information retrieval techniques and context engineering, [we are hiring!](https://realmtechnologies.notion.site/AI-Engineer-1c0bddf3cd2e80c68a83d30e166df39d?pvs=4).
+At [Realm](https://www.withrealm.com/blog/seed-round), we have been running the new patch live in production for thousands of users for a few days already, observing 10x speedups for queries that used to be unbearably slow. If you are interested in working with information retrieval techniques and context engineering, [we are hiring!](https://realmtechnologies.notion.site/AI-Engineer-1c0bddf3cd2e80c68a83d30e166df39d?pvs=4)
