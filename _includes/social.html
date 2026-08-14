@@ -10,7 +10,7 @@
   {%- if site.x_username -%}
     <li>
       <a href="https://x.com/{{ site.x_username | cgi_escape | escape }}" aria-label="X: {{ site.x_username | escape }}" title="{{ site.x_username | escape }}">
-        <span class="svg-icon x-icon" aria-hidden="true">𝕏</span>
+        <svg class="svg-icon x-icon" aria-hidden="true"><use xlink:href="{{ '/assets/minima-social-icons.svg#twitter' | relative_url }}"></use></svg>
         <span class="username">{{ site.x_username | escape }}</span>
       </a>
     </li>
