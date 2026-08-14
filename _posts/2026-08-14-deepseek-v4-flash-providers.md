@@ -5,15 +5,11 @@ date: 2026-08-14
 categories: engineering
 ---
 
-DeepSeek V4 Flash 0731 is available from many inference providers. I wanted to
-see which ones could handle production traffic.
+DeepSeek V4 Flash 0731 is available from many inference providers, and I needed to evaluate which ones could handle our production traffic.
 
-I sent 30 streaming requests concurrently to each provider across four
-workloads: 120 per provider and 1,080 total. Decode speed is the combined rate
-of the 30 decode requests.
+I sent 30 streaming requests concurrently to each provider across four workloads: 120 per provider and 1,080 total requests. Decode speed was measured as the combined rate of the 30 decode requests.
 
-This is a one-time snapshot. DeepInfra felt faster earlier, before US traffic
-ramped up.
+This is a one-time snapshot. DeepInfra felt faster earlier in the day, but got slower as US traffic was starting to ramp up at the time when I was doing this test.
 
 ## Results
 
@@ -29,9 +25,6 @@ ramped up.
 | Nebius | 2,542 | 948 / 7,563 ms | 12.08 s | 0.0% | 0/120 |
 | Lyceum | 934 | 8,275 / 9,354 ms | 32.89 s | **96.0%** | 0/120 |
 
-Azure wasn't running the new DeepSeek V4 Flash 0731 checkpoint, so its results
-aren't directly comparable with the others.
+Azure wasn't running the new DeepSeek V4 Flash 0731 checkpoint, so its results aren't directly comparable with the others.
 
-Scaleway's 18 failures were HTTP 429s from a token-per-minute quota; successful
-requests had the best TTFT distribution. TensorX had one transient HTTP 502.
-Everything else succeeded.
+Scaleway's 18 failures were HTTP 429s from a token-per-minute quota which we need to increase. Other than the rate limits, successful requests to them had the best TTFT distribution. TensorX had one transient HTTP 502. Otherwise, all the providers were solid.
