@@ -9,9 +9,9 @@
   {%- endif -%}
   {%- if site.x_username -%}
     <li>
-      <a href="https://x.com/{{ site.x_username | cgi_escape | escape }}" aria-label="X: {{ site.x_display_name | default: site.x_username | escape }}" title="{{ site.x_display_name | default: site.x_username | escape }}">
+      <a href="https://x.com/{{ site.x_username | cgi_escape | escape }}" aria-label="X: {{ site.x_username | escape }}" title="{{ site.x_username | escape }}">
         <span class="svg-icon x-icon" aria-hidden="true">𝕏</span>
-        <span class="username">{{ site.x_display_name | default: site.x_username | escape }}</span>
+        <span class="username">{{ site.x_username | escape }}</span>
       </a>
     </li>
   {%- endif -%}
